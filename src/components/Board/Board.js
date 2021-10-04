@@ -2,9 +2,7 @@ import React from 'react';
 import Square from '../Square/Square';
 import './Board.css';
 
-const boardSize = 6;
-
-function Board({ squares, winningSquares, onClick }) {
+const Board = ({ squares, winningSquares, onClick, boardSize }) => {
 	let createSquares = [];
 	for (let i = 0; i < boardSize; ++i) {
 		let row = [];
@@ -26,7 +24,7 @@ function Board({ squares, winningSquares, onClick }) {
 	}
 
 	return <div>{createSquares}</div>;
-}
+};
 
 function renderSquare(value, i, isWinSquare, onClick) {
 	return (

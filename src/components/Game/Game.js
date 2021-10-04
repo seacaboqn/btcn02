@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import Board from '../Board/Board';
+import Dropdown from '../Dropdown/Dropdown';
 import './Game.css';
-
-const boardSize = 6;
 
 function calculateWinner(squares, n) {
 	for (let i = 0; i < squares.length; i++) {
@@ -71,15 +70,16 @@ function calculateWinner(squares, n) {
 	return null;
 }
 
-function Game() {
+const Game = () => {
 	const [history, setHistory] = useState([
 		{
-			squares: Array(36).fill(null),
+			squares: Array(25).fill(null),
 		},
 	]);
 	const [stepNumber, setStepNumber] = useState(0);
 	const [xIsNext, setXIsNext] = useState(true);
 	const [isDescending, setIsDescending] = useState(true);
+	const [boardSize, setBoardSize] = useState(5);
 
 	function handleClick(i) {
 		const currentHistory = history.slice(0, stepNumber + 1);
@@ -110,7 +110,22 @@ function Game() {
 		setIsDescending(!isDescending);
 	}
 
+	const changeBoardSize = (data) => {
+		setHistory([
+			{
+				squares: Array(data * data).fill(null),
+			},
+		]);
+		setStepNumber(0);
+		setXIsNext(true);
+		setIsDescending(true);
+		setBoardSize(parseInt(data));
+	};
+
 	const current = history[stepNumber];
+	// console.log('history', history);
+	// console.log('step', stepNumber);
+	// console.log('current', current);
 	const winner = calculateWinner(current.squares, boardSize);
 
 	const moves = history.map((step, move) => {
@@ -142,6 +157,7 @@ function Game() {
 					squares={current.squares}
 					onClick={(i) => handleClick(i)}
 					winningSquares={winner ? winner.line : []}
+					boardSize={boardSize}
 				/>
 			</div>
 			<div className="game-info">
@@ -155,8 +171,9 @@ function Game() {
 					Sort by: {isDescending ? 'Descending' : 'Asending'}
 				</button>
 			</div>
+			<Dropdown onFetchData={changeBoardSize} />
 		</div>
 	);
-}
+};
 
 export default Game;
