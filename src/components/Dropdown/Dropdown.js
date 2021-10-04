@@ -20,6 +20,11 @@ const Dropdown = ({ onFetchData }) => {
 				<option value="13">13x13</option>
 				<option value="14">14x14</option>
 				<option value="15">15x15</option>
+				<option value="16">16x16</option>
+				<option value="17">17x17</option>
+				<option value="18">18x18</option>
+				<option value="19">19x19</option>
+				<option value="20">20x20</option>
 			</select>
 		</div>
 	);

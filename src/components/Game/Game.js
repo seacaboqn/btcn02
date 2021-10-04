@@ -90,14 +90,14 @@ const Game = () => {
 		}
 		squares[i] = xIsNext ? 'X' : 'O';
 		setHistory(
-			history.concat([
+			currentHistory.concat([
 				{
 					squares: squares,
 					location: [i % boardSize, Math.floor(i / boardSize)],
 				},
 			])
 		);
-		setStepNumber(history.length);
+		setStepNumber(currentHistory.length);
 		setXIsNext(!xIsNext);
 	}
 
@@ -123,9 +123,6 @@ const Game = () => {
 	};
 
 	const current = history[stepNumber];
-	// console.log('history', history);
-	// console.log('step', stepNumber);
-	// console.log('current', current);
 	const winner = calculateWinner(current.squares, boardSize);
 
 	const moves = history.map((step, move) => {
